@@ -184,7 +184,6 @@ form .user-details .input-box{
               </form>
             </div>
           </div>
-        
         </body>
         </html>
 
