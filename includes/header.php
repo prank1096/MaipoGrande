@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/formulario.css">
 	<link rel="stylesheet" href="scss/style.scss">
+	<link rel="stylesheet" href="scss/formulario.scss">
 
   </head>
   <body class="goto-here">
