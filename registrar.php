@@ -16,7 +16,7 @@ if (isset($_POST['registrar'])) {
         $apellido = trim($_POST['apellido']);
         $nombre = trim($_POST['nombre']);
         $estado = 1;
-        $tipouser = 1;
+        $tipouser = trim($_POST['tipousuario']);
 	  
 	    $consulta = "INSERT INTO usuario(usu_nombre, usu_apellido, usu_contrasena, usu_login, usu_rut, usu_numero, usu_direccion, usu_ciudad, usu_pais, usu_correo, usu_estado, id_tipousuario) 
         
