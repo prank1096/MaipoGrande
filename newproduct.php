@@ -5,26 +5,53 @@ require 'conexion.php';
 
 if (isset($_POST['newproduct'])) {
     if (strlen($_POST['cantidad']) >= 1  ) {
-	    $user = trim($_POST['user']);
-        $password = trim($_POST['password']);
-	    $correo = trim($_POST['correo']);
-        $pais = trim($_POST['pais']);
-        $ciudad = trim($_POST['ciudad']);
-        $direccion = trim($_POST['direccion']);
-        $numerotele = trim($_POST['numerotele']);
-        $rut = trim($_POST['rut']);
-        $apellido = trim($_POST['apellido']);
+       
+        $fechavenc = trim($_POST['fechavenc']);
+        $fechaela = trim($_POST['fechaela']);
+        $cantidad = trim($_POST['cantidad']);
         $nombre = trim($_POST['nombre']);
         $estado = 1;
-        $tipouser = 1;
-	  
-	    $consulta = "INSERT INTO usuario(usu_nombre, usu_apellido, usu_contrasena, usu_login, usu_rut, usu_numero, usu_direccion, usu_ciudad, usu_pais, usu_correo, usu_estado, id_tipousuario) 
+        $opcion= trim($_POST['opcion']);
+        $imagen = $_FILES['imagen'];
         
-        VALUES ('$nombre','$apellido','$password','$user','$rut','$numerotele','$direccion','$ciudad','$pais','$correo','$estado','$tipouser')";
+
+        date_default_timezone_set("America/Santiago");
+        $fec_subida = date("Y-m-d H:i:s");
+
+        //seleccionando carpeta donde guardar imagen
+        $carpetaimagen= 'images/imagenesDB/';
+
+        //GENERAR NOMBRE UNICO PARA IMAGEN
+        $nombreimagen=md5(uniqid(rand(), true) ). ".jpg";
+
+        //SUBIR LA IMAGEN 
+
+        move_uploaded_file($imagen['tmp_name'], $carpetaimagen . $nombreimagen);
+
+
+
+        
+        $consulta = "INSERT INTO producto(pro_nombre, pro_cantidad,pro_fec_elaboracion, pro_fec_vencimiento,pro_estado, id_tipoproduc) 
+        
+        VALUES ('$nombre','$cantidad','$fechaela','$fechavenc','$estado','$opcion')";
 	    $resultado = mysqli_query($conexion,$consulta);
+
+        $consulta2 = "INSERT INTO productoimagen(pri_nombre, pri_fec_subida,pri_estado) 
+
+        VALUES ('$nombreimagen','$fec_subida','$estado')";
+	    $resultado2 = mysqli_query($conexion,$consulta2);
 	    if ($resultado) {
 	    	?> 
-	    	<h3 class="ok">¡Te has registrado correctamente!</h3>
+	    	<h3 class="ok">¡Ha ingresado correctamente el producto!</h3>
+           <?php
+	    } else {
+	    	?> 
+	    	<h3 class="bad">¡Ups ha ocurrido un error!</h3>
+           <?php
+	    }
+        if ($resultado2) {
+	    	?> 
+	    	<h3 class="ok">¡Ha ingresado correctamente la IMAGEN de su respectivo producto!</h3>
            <?php
 	    } else {
 	    	?> 

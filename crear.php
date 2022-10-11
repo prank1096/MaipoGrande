@@ -1,5 +1,17 @@
 <?php  
 include 'includes/header.php';  
+include_once 'db.php';
+require 'config.php';
+require 'conexion.php';
+
+
+
+//consulta para obtener los tipos de productos
+$consulta = "SELECT * FROM tipoproducto";
+$resultado = mysqli_query($conexion, $consulta);
+
+
+
 ?>
 
 
@@ -18,7 +30,7 @@ include 'includes/header.php';
             <h2 class="color">Agregando Productos</h2>
             <br>
             <div class="content">
-              <form action="newproduct.php" method="post">
+              <form action="newproduct.php" method="POST"  enctype="multipart/form-data">
                 <div class="user-details">
                   <div class="input-box">
                     <span class="details">Nombre del Producto</span>
@@ -34,14 +46,25 @@ include 'includes/header.php';
                   </div>
                   <div class="input-box">
                   <span class="details">fecha de vencimiento del producto</span>
-                    <input name="fechavenc" type="date" placeholder="9/10/2022" required>
+                    <input name="fechavenc" type="date" placeholder="9/10/2022"  required>
+                  </div>
+     
+                  <div class="input-box">
+
+                  <span class="details">Imagen del producto</span>
+                    <input name="imagen" type="file" accept="image/jpeg, image/png,  image/jpg" required>
                   </div>
                   <div class="input-box">
                     <span class="details">Tipo de producto</span>
-                    <select class="input-box">
-                        <option value="1">VERDURAS</option>
-                        <option value="2">FRUTAS</option>
 
+                    <select class="input-box" name="opcion" >
+                        <option value="" >-- Seleccione --</option>
+                        <?php while($tipoproducto= mysqli_fetch_assoc($resultado) ): ?>
+
+                          <option   value="<?php echo $tipoproducto ['id_tipoproduc']; ?>" >
+                          <?php echo $tipoproducto ['tip_nombre'] ; ?>
+                        </option>
+                          <?php endwhile; ?>
                     </select>
                   </div>
                  
