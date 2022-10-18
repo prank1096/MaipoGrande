@@ -1,8 +1,9 @@
 <?php 
-include_once 'db.php';
-require 'config.php';
-require 'conexion.php';
+  include_once 'db.php';
+  require 'config.php';
+  require 'conexion.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -226,39 +227,48 @@ form .user-details .input-box{
                     <input name="apellido" type="text" placeholder="Apellido" required>
                   </div>
                   <div class="input-box">
-                    <span class="details">rut</span>
-                    <input name="rut" type="text" placeholder="20.321.654-k" required>
+                    <span class="details">Rut</span>
+                    <input name="rut" type="text" placeholder="12.345.678-9" required>
                   </div>
                   <div class="input-box">
-                    <span class="details">Numero Telefonico</span>
+                    <span class="details">Número Telefónico</span>
                     <input name="numerotele" type="number" placeholder="912345678" autocomplete="off" required>
                   </div>
                   <div class="input-box">
-                    <span class="details">Direccion</span>
-                    <input name="direccion" type="text" placeholder="calle falsa 123" required>
+                    <span class="details">Dirección</span>
+                    <input name="direccion" type="text" placeholder="Mi dirección 3215, Torre 12 Departamento 18" required>
                   </div>
                   <div class="input-box">
                     <span class="details">Correo</span>
-                    <input name="correo" type="email" placeholder="aaaaa@yourdomain.com" autocomplete="off" required>
+                    <input name="correo" type="email" placeholder="tucorreo@gmail.com" autocomplete="off" required>
+                  </div>
+                  <div class="input-box">
+                    <span class="details">País</span>
+                    <input name="pais" type="text" placeholder="País" autocomplete="off" required>
                   </div>
                   <div class="input-box">
                     <span class="details">Ciudad</span>
-                    <input name="ciudad" type="text" placeholder="Santiago" autocomplete="off" required>
-                  </div>
-                  <div class="input-box">
-                    <span class="details">Pais</span>
-                    <input name="pais" type="text" placeholder="Chile" autocomplete="off" required>
+                    <input name="ciudad" type="text" placeholder="Ciudad" autocomplete="off" required>
                   </div>
                   <div class="input-box">
                     <span class="details">Nombre de Usuario</span>
-                    <input name="user" type="text" placeholder="Chile" autocomplete="off" required>
+                    <input name="user" type="text" placeholder="Nombre de Usuario" autocomplete="off" required>
                   </div>
                   <div class="input-box">
-                    <span class="details">Contraseña Usuario</span>
-                    <input name="password" type="password" placeholder="Chile" autocomplete="off" required>
+                    <span class="details">Contraseña</span>
+                    <input name="password" type="password" placeholder="Contraseña" autocomplete="off" required>
                   </div>
-                  <span class="psw">Tienes cuenta? <a href="login.php">Iniciar Sesion</a></span>
-                </div>
+                  <div class="input-box">
+                    <span class="details">Tipo de usuario</span>
+                    <select name="tipousuario">
+                      <option value="1">Cliente externo</option >
+                      <option value="2">Comerciante local</option >
+                      <option value="3">Productor</option >
+                    </ui>
+                  </div>
+                  <div class="list">
+                    <span class="psw">Tienes cuenta? <a href="login.php">Iniciar Sesión</a></span>
+                  </div>
                 <p><input href="login.php" type="submit" name="registrar" class="btn btn-primary py-2 px-3"></p>
                 </div>
               </form>
