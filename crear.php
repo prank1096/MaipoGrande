@@ -41,15 +41,19 @@ $resultado = mysqli_query($conexion, $consulta);
                     <input name="cantidad" type="number" placeholder="1" required  min="1" && max="99">
                   </div>
                   <div class="input-box">
-                    <span class="details">fecha de emision del producto</span>
+                    <span class="details">Fecha de Emision del Producto</span>
                     <input name="fechaela" type="date" placeholder="9/10/2022" required>
                   </div>
                   <div class="input-box">
-                  <span class="details">fecha de vencimiento del producto</span>
+                  <span class="details">Fecha de Vencimiento del Producto</span>
                     <input name="fechavenc" type="date" placeholder="9/10/2022"  required>
                   </div>
      
                   <div class="input-box">
+                  <div class="input-box">
+                    <span class="details">Precio</span>
+                    <input name="precio" type="number" placeholder="1000" required >
+                  </div>
 
                   <span class="details">Imagen del producto</span>
                     <input name="imagen" type="file" accept="image/jpeg, image/png,  image/jpg" required>

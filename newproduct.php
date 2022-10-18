@@ -13,6 +13,7 @@ if (isset($_POST['newproduct'])) {
         $estado = 1;
         $opcion= trim($_POST['opcion']);
         $imagen = $_FILES['imagen'];
+        $precio= trim($_POST['precio']);
         
 
         date_default_timezone_set("America/Santiago");
@@ -31,15 +32,12 @@ if (isset($_POST['newproduct'])) {
 
 
         
-        $consulta = "INSERT INTO producto(pro_nombre, pro_cantidad,pro_fec_elaboracion, pro_fec_vencimiento,pro_estado, id_tipoproduc) 
+        $consulta = "INSERT INTO producto(pro_nombre, pro_cantidad,pro_fec_elaboracion, pro_fec_vencimiento,pro_precio, pro_imagen,pro_estado, id_tipoproduc) 
         
-        VALUES ('$nombre','$cantidad','$fechaela','$fechavenc','$estado','$opcion')";
+        VALUES ('$nombre','$cantidad','$fechaela','$fechavenc','$precio','$nombreimagen','$estado','$opcion')";
 	    $resultado = mysqli_query($conexion,$consulta);
 
-        $consulta2 = "INSERT INTO productoimagen(pri_nombre, pri_fec_subida,pri_estado) 
-
-        VALUES ('$nombreimagen','$fec_subida','$estado')";
-	    $resultado2 = mysqli_query($conexion,$consulta2);
+     
 	    if ($resultado) {
 	    	?> 
 	    	<h3 class="ok">¡Ha ingresado correctamente el producto!</h3>
@@ -49,15 +47,7 @@ if (isset($_POST['newproduct'])) {
 	    	<h3 class="bad">¡Ups ha ocurrido un error!</h3>
            <?php
 	    }
-        if ($resultado2) {
-	    	?> 
-	    	<h3 class="ok">¡Ha ingresado correctamente la IMAGEN de su respectivo producto!</h3>
-           <?php
-	    } else {
-	    	?> 
-	    	<h3 class="bad">¡Ups ha ocurrido un error!</h3>
-           <?php
-	    }
+        
     }   else {
 	    	?> 
 	    	<h3 class="bad">¡Por favor complete los campos!</h3>
