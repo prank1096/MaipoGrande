@@ -2,8 +2,6 @@
 include_once 'db.php';
 require 'config.php';
 require 'conexion.php';
-
-
 ?>
 
 <!DOCTYPE html>
