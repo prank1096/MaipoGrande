@@ -1,10 +1,35 @@
+<?php
+ //include 'validar.php';
+ 
+if(!isset($_SESSION)){
+	session_start();
+	
+}
+
+
+
+$usuarios = $_SESSION['usu_login'] ?? null;
+
+$admin = $_SESSION['id_tipousuario'] ?? null;
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>MaipoGrande |  Chile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
+	<link rel="stylesheet" href="path/to/font-awesome-4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -17,6 +42,8 @@
     <link rel="stylesheet" href="css/magnific-popup.css">
 
     <link rel="stylesheet" href="css/aos.css">
+
+	
 
     <link rel="stylesheet" href="css/ionicons.min.css">
 
@@ -76,13 +103,32 @@
               </div>
             </li>
 	          <li class="nav-item"><a href="about.php" class="nav-link">Sobre Nosotros</a></li>
-	          <li class="nav-item"><a href="blog.php" class="nav-link">Publicaciones</a></li>
+			  <?php if($usuarios=$usuarios): ?>
+	          <li class="nav-item"><a href="publicacion.php" class="nav-link">Publicaciones</a></li>
+			  <?php endif; ?>
+			  <?php if($admin==2): ?>
+	          <li class="nav-item"><a href="administra.php" class="nav-link">Administrador Productos</a></li>
+			  <?php endif; ?>
 	          <li class="nav-item"><a href="contact.php" class="nav-link">Contáctanos</a></li>
+			
+
+			<?php if($usuarios=$usuarios): ?>
+			  <li class="nav-item"><a href="cerrarsesion.php" class="nav-link">cerrar sesion</a></li>
+			  <?php endif; ?>
+
+			  <?php if($usuarios==NULL): ?>
 			  <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+			  <?php endif; ?>
+
 	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-			  
+			  <?php if($usuarios=$usuarios): ?>
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido Franco9784</a>
+
+			  
+			<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido <?php echo $_SESSION['usu_login'] ?? null ?></a>
+
+				
+				
 				<div class="dropdown-menu" aria-labelledby="dropdown04">
 					<a class="dropdown-item" href="shop.php">Mis Productos</a>
 					<a class="dropdown-item" href="wishlist.php">Mis Pedidos</a>
@@ -90,7 +136,7 @@
 				  <a class="dropdown-item" href="cart.php">Salir</a>
 				</div>
 			  </li>
-
+			  <?php endif; ?>
 	        </ul>
 	      </div>
 	    </div>

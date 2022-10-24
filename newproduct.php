@@ -32,7 +32,8 @@ if (isset($_POST['newproduct'])) {
 
 
         
-        $consulta = "INSERT INTO producto(pro_nombre, pro_cantidad,pro_fec_elaboracion, pro_fec_vencimiento,pro_precio, pro_imagen,pro_estado, id_tipoproduc) 
+        $consulta = "INSERT INTO producto(pro_nombre, 
+                                        pro_cantidad,pro_fec_elaboracion, pro_fec_vencimiento,pro_precio, pro_imagen,pro_estado, id_tipoproduc) 
         
         VALUES ('$nombre','$cantidad','$fechaela','$fechavenc','$precio','$nombreimagen','$estado','$opcion')";
 	    $resultado = mysqli_query($conexion,$consulta);

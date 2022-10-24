@@ -2,8 +2,44 @@
 include_once 'db.php';
 require 'config.php';
 require 'conexion.php';
+
+session_start();
+
+$usuarios = $_SESSION['id_tipousuario'];
+if($usuarios==1 ||  $usuarios ==2|| $usuarios ==3){
+
+  
+}else{
+  header('Location: index.php');
+}
+
+$query = "SELECT * FROM publicacion order by id_publicacion DESC";
+$resultado = mysqli_query($conexion, $query);
+
+
 ?>
 
+
+
+<style>
+  .ola {
+  background-color: Green;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ola:hover {
+  background-color: #EEEDED;
+}
+
+.poto {border-radius: 12px;}
+
+
+
+  </style>
 <?php  
 include 'includes/header.php';  
 ?>
@@ -14,123 +50,78 @@ include 'includes/header.php';
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Blog</span></p>
-            <h1 class="mb-0 bread">Blog</h1>
+            <h1 class="mb-0 bread">Publicación</h1>
           </div>
         </div>
       </div>
     </div>
 
     <section class="ftco-section ftco-degree-bg">
+    
       <div class="container">
+     
         <div class="row">
+        
           <div class="col-lg-8 ftco-animate">
+          <?php while($publicacion = mysqli_fetch_assoc($resultado)): 		?>
 						<div class="row">
+          
 							<div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/a_4.jpg');">
+
+		              <a href="publi_detalle.php?id=<?php echo $publicacion['id_publicacion']; ?>" class="block-20" style="background-image: url('images/imagenesDB/<?php echo $publicacion ['pub_imagen'];	 ?>');">
+
 		              </a>
 		              <div class="text d-block pl-md-4">
 		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+		                  <div><a ><?php echo $publicacion['pub_fec_subida']; ?></a></div>
+
+		                  <div><a ><?php echo $publicacion['id_usuario']; ?></a></div>
+
+		                  <div><a  class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+
 		                </div>
-		                <h3 class="heading"><a href="#">¡AgroSuper se encuentra en busca de las mejores verduras! </a></h3>
-		                <p>Ingresa a la publicación para ver más detalles.</p>
-		                <p><a href="publi_detalle.php" class="btn btn-primary py-2 px-3">Ingresar</a></p>
+		                <h3 class="heading"><?php echo $publicacion['pub_nombre']; ?> </a></h3>
+                    
+		                <p><?php echo $publicacion['pub_descripcion']; ?></p>
+
+		                <p><a href="publi_detalle.php?id=<?php echo $publicacion['id_publicacion']; ?>" class="btn btn-primary py-2 px-3">Ver detalle</a></p>
+
 		              </div>
 		            </div>
 		          </div>
-		          <div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/bg_13.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">José Barrueto se encuentra en busca de las mejores frutas</a></h3>
-		                <p>Ingresa a la publicación para ver más detalles.</p>
-		                <p><a class="btn btn-danger py-2 px-3">Finalizada</a></p>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/image_3.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                <p><a href="blog-single.php" class="btn btn-primary py-2 px-3">Read more</a></p>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/image_4.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                <p><a href="blog-single.php" class="btn btn-primary py-2 px-3">Read more</a></p>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/image_5.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                <p><a href="blog-single.php" class="btn btn-primary py-2 px-3">Read more</a></p>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex ftco-animate">
-		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.php" class="block-20" style="background-image: url('images/image_6.jpg');">
-		              </a>
-		              <div class="text d-block pl-md-4">
-		              	<div class="meta mb-3">
-		                  <div><a href="#">July 20, 2019</a></div>
-		                  <div><a href="#">Admin</a></div>
-		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-		                </div>
-		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-		                <p><a href="blog-single.php" class="btn btn-primary py-2 px-3">Read more</a></p>
-		              </div>
-		            </div>
-		          </div>
+              
 						</div>
+            <?php endwhile; ?>
+    
           </div> <!-- .col-md-8 -->
+
           <div class="col-lg-4 sidebar ftco-animate">
             <div class="sidebar-box">
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">
+            <button onclick="location.href='crearpubli.php'" class="ola poto fa fa-plus" ><i class="fa fa-plus" aria-hidden="true"></i> Nueva Publicación</button>
+            
+            <br> 
+                <br> 
+                <br>
+
               <form action="#" class="search-form">
                 <div class="form-group">
                   <span class="icon ion-ios-search"></span>
                   <input type="text" class="form-control" placeholder="Search...">
                 </div>
               </form>
+
+
+               
+
+            
+             
+
+
+
+
             </div>
             <div class="sidebar-box ftco-animate">
             	<h3 class="heading">Categories</h3>
