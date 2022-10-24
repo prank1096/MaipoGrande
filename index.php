@@ -127,7 +127,7 @@ require 'conexion.php';
 
 			  <div class="col-md-12 ftco-animate text-center">
 				<h1 class="mb-2">Desde Maipo Grande Para el Mundo &amp; Maipo</h1>
-				<h2 class="subheading mb-4">Lo mejor de lo mejor &amp; Maipo</h2>
+				<h2 class="subheading mb-4">Lo mejor de lo Mejor &amp; Maipo</h2>
 				<p><a href="#" class="btn btn-primary">Más Información</a></p>
 			  </div>
 
@@ -162,7 +162,7 @@ require 'conexion.php';
               </div>
               <div class="media-body">
                 <h3 class="heading">Envio Gratis</h3>
-                <span>Sobre $100.000 CLP</span>
+                <span>Sobre $250.000 CLP</span>
               </div>
             </div>      
           </div>
