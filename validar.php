@@ -1,28 +1,28 @@
 <?php 
+include_once 'db.php';
+//require 'config.php';
+//require 'conexion.php';
 
 
-$usuario = $_POST['usuario'];
-$contraseña= $_POST['password'];
 session_start();
-$_SESSION['usuario']= $usuario;
-$consulta= "SELECT * FROM usuario where usu_login = '$usuario' and usu_contrasena = '$contraseña'";
-include('db.php');
-$resultado= mysqli_query($conexion,$consulta);
-$filas=mysqli_num_rows($resultado);
 
-if($filas){
-  header("location: index.php");
-}
-else{
-  ?>
-  <?php
-  include("login.php");
-  ?>
-  <h1 class="bad">
-      error en la autenticacion
-  </h1>
-  <?php
-}
-mysqli_free_result($resultado);
-mysqli_close($conexion);
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
+    if (!$email && !$password) {
+        header('Location:login.php');
+    } else {
+        $query = "SELECT * FROM usuario WHERE usu_login = '$email' AND usu_contrasena = '$password' ";
+        $result = mysqli_query($conexion, $query);
+        if (mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            $_SESSION['usu_login'] = $user['usu_login'];
+            $_SESSION['id_usuario'] = $user['id_usuario'];
+            $_SESSION['id_tipousuario'] = $user['id_tipousuario'];
+            header('Location:index.php');
+        } else {
+            header('Location:login.php');
+        }
+    }
+}

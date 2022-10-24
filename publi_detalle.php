@@ -2,138 +2,183 @@
 include_once 'db.php';
 require 'config.php';
 require 'conexion.php';
+
+$id= $_GET['id'];
+$id= filter_var($id, FILTER_VALIDATE_INT);
+
+$n = 1;
+
+$publicacion = "SELECT * FROM publicacion WHERE id_publicacion = ${id}";
+
+$publicacion_resultado = mysqli_query($conexion, $publicacion);
+
+
+$query = "SELECT * FROM publicacion a 
+INNER JOIN publicaciondetalle b ON a.id_publicacion = b.id_publicacion
+INNER JOIN producto p ON p.id_producto = b.id_producto
+WHERE b.id_publicacion = ${id}";
+
+$resultado = mysqli_query($conexion, $query);
+// var_dump($id);
+// var_dump($producto);;
+// die;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>MaipoGrande |  Chile</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+<?php  
+include 'includes/header.php';  
+?>
+<style>
+.ola {
+  background-color: Green;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+.ola:hover {
+  background-color: #EEEDED;
+}
 
-    <link rel="stylesheet" href="css/aos.css">
+.poto {border-radius: 12px;}
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.button5 {border-radius: 12px;}
 
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="scss/style.scss">
+table {
+  padding: 0.75rem;
+  width: 100%;
+  vertical-align: top;
+  border-collapse: collapse;
+  border-top: 1px solid #ebedf2;
+  color: #212529;
+  background-color: #666666 !important;
+}
 
-  </head>
-  <body class="goto-here">
-		<div class="py-1 bg-primary">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+56945217838</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">MaipoGrande@gmail.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text"> Compra Ya! &amp; Devolucion Gratis!</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.php">Maipo Grande</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+thead th:nth-child(1) {
+  width: 20%;
+}
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.php" class="nav-link">Inicio</a></li>
-			  
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.php">Comprar</a>
-              	<a class="dropdown-item" href="wishlist.php">Listado</a>
-                <a class="dropdown-item" href="product-single.php">Descripcion</a>
-                <a class="dropdown-item" href="cart.php">Carro</a>
-                <a class="dropdown-item" href="checkout.php">Caja</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="about.php" class="nav-link">Sobre Nosotros</a></li>
-	          <li class="nav-item"><a href="blog.php" class="nav-link">Publicaciones</a></li>
-	          <li class="nav-item"><a href="contact.php" class="nav-link">Contáctanos</a></li>
-			  <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-			  
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido Franco9784</a>
-				<div class="dropdown-menu" aria-labelledby="dropdown04">
-					<a class="dropdown-item" href="shop.php">Mis Productos</a>
-					<a class="dropdown-item" href="wishlist.php">Mis Pedidos</a>
-				  <a class="dropdown-item" href="product-single.php">Configuración</a>
-				  <a class="dropdown-item" href="cart.php">Salir</a>
-				</div>
-			  </li>
+thead th:nth-child(2) {
+  width: 20%;
+}
 
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th{
+  background-color: #FFFFFF;
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #ebedf2;
+  color: #212529;
+  text-align: inherit;
+}
+
+td {
+  background-color: #FFFFFF;
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #ebedf2;
+}
+
+  .ola {
+  background-color: Green;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ola:hover {
+  background-color: #EEEDED;
+}
+
+.poto {border-radius: 12px;}
+
+
+</style>
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>About us</span></p>
-            <h1 class="mb-0 bread">Publicaciones detalles</h1>
+            <h2 class="mb-0 bread">Publicación Detalle</h2>
           </div>
         </div>
       </div>
     </div>
-
+    <?php while($publi = mysqli_fetch_assoc($publicacion_resultado)):?>
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
-						<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
-							<span class="icon-play"></span>
-						</a>
-					</div>
-					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+					<div class="col-md-12 py-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-4 mt-md-5">
 	          	<div class="ml-md-0">
-		            <h2 class="mb-4">AgroSuper se encuentra en busca de las mejores frutas blabla</h2>
+		            <h2 class="mb-4"><?php echo $publi['pub_nombre']; ?></h2>
 	            </div>
 	          </div>
-	          <div class="pb-md-5">La empresa josé barrueto se dedica a la compra y venta de las mejores verduras con el fin de ofrecer productos de calidad a sus clientes bnlabla</p>
-                            <button id="myBtn" class="btn btn-primary">¿Qué buscamos?</button>
+	          <div class="text-center">
+              <?php echo $publi['pub_descripcion']; ?>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-
+    </section>
+      <?php endwhile; ?>
+      <div class="container">
+          <div class="col-md-12 py-5 wrap-about pb-md-5 ftco-animate text-center">
+            <h2 class="text-center">Productos que se solicitan: </h2>
+	        </div>
+          <table>
+              <tr>
+            <th class="text-center">Nº</th>
+                <th class="text-center">Nombre Producto</th>
+                <th class="text-center">Cantidad</th>
+              </tr>
+            </thead>
+              <tbody>
+              <?php while($producto = mysqli_fetch_assoc($resultado)): 		?>
+                <tr>
+                    <td class="text-center"><?php echo $n++ ?></td>
+                    <td class="text-center"><?php echo $producto['pro_nombre'] ?></td>
+                    <td class="text-center"><?php echo $producto['pubdet_cantidad'] ?></td>
+                    </td> 
+                </tr>
+              <?php endwhile; ?>
+            </tbody>     
+          </table>
+      </div>
+      <div class="text-center">
+      <br>
+      <br>
+      <br>
+      <br>
+    <button href="Tienes que crear el php para ingresar los productos"  class="ola poto fa fa-plus">Ingresar mis productos</button>
+</div>
+<br>
+<br>
+<br>
         <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -146,22 +191,23 @@ require 'conexion.php';
       </div>
       <div class="modal-body">
         <table id="customers">
-            <tr>
-              <th>Producto</th>
-              <th></th>
-              <th>Cantidad</th>
-              <th></th>
-              <th>Tipo Producto</th>
-            </tr>
-            <tr>
-              <td>Papas</td>
-              <th></th>
-              <td>20kg</td>
-              <th></th>
-              <td>Verduras</td>
-            </tr>
-          
-            </tr>
+        <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+
+  
+  <tr>
+    <td>Berglunds snabbköp</td>
+    <td>Christina Berglund</td>
+    <td>Sweden</td>
+  </tr>
           </table>
           <button href="formulario_local.php" class="btn btn-primary">Ingresar mis productos</button>
       </div>
@@ -200,264 +246,9 @@ require 'conexion.php';
   }
   </script>
 
-		
-		
-		<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_3.jpg);">
-    	<div class="container">
-    		<div class="row justify-content-center py-5">
-    			<div class="col-md-10">
-		    		<div class="row">
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="10000">0</strong>
-		                <span>Total de productos vendidos</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="100">0</strong>
-		                <span>Sucursales</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="1000">0</strong>
-		                <span>Partner</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="100">0</strong>
-		                <span>Awards</span>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-	        </div>
-        </div>
-    	</div>
-    </section>
-		
-    <section class="ftco-section testimony-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section ftco-animate text-center">
-          	<span class="subheading">Testimonios</span>
-            <h2 class="mb-4">Lo que dicen nuestros usuarios</h2>
-            <p>demostrando nuestra garantia y feedback sobre nuestro sitio web 100% garantia de la venta y compra de frutas y verduras</p>
-          </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel">
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/bg_6.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Una de las mejores paginas en donde se puedan vender y comprar productos en chile genial MAIPOGRANDE.</p>
-                    <p class="name">Arturo Guerrero</p>
-                    <span class="position">Vega Manager</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/bg_7.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Una de las pocas paginas el cual he visitado y he podido el poder de disfrutar las mejores frutas y verduras 10/10.</p>
-                    <p class="name">Gustavo Becerra</p>
-                    <span class="position">Morande's Show</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/bg_8.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Genial el sitio web MaipGrande uno de los sitios con mayor distincion el cual pueda distribuir mis productos.</p>
-                    <p class="name">Luciana Dominguez</p>
-                    <span class="position">Productor</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/bg_9.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Genial la pagina mas grande de chile MaipoGrande gracias a ella he podido llegar a mas partes del mundo con mis productos.</p>
-                    <p class="name">Juan Vega</p>
-                    <span class="position">Productor</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/bg_10.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Gracias a este sitio web he podido comprar productos estando en el extranjero muy grata experiencia de compra!.</p>
-                    <p class="name">Alfons Hakimi</p>
-                    <span class="position">Cliente</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="ftco-section bg-light">
-			<div class="container">
-				<div class="row no-gutters ftco-services">
-          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-shipped"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Free Shipping</h3>
-                <span>On order over $100</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-diet"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Always Fresh</h3>
-                <span>Product well package</span>
-              </div>
-            </div>    
-          </div>
-          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-award"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Superior Quality</h3>
-                <span>Quality Products</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-lg-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-customer-service"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Support</h3>
-                <span>24/7 Support</span>
-              </div>
-            </div>      
-          </div>
-        </div>
-			</div>
-		</section>
-
-    <footer class="ftco-footer ftco-section">
-      <div class="container">
-      	<div class="row">
-      		<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						</a>
-					</div>
-      	</div>
-        <div class="row mb-5">
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">MaipoGrande</h2>
-              <p>La misión de la empresa es facilitar la comercialización de los productos de sus diferentes clientes en el 
-				mercado extranjero y local</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Menu</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Shop</a></li>
-                <li><a href="#" class="py-2 d-block">Sobre Nosotros</a></li>
-                <li><a href="#" class="py-2 d-block">Contactactanos</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-4">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Ayuda</h2>
-              <div class="d-flex">
-	              <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-	                <li><a href="#" class="py-2 d-block">Informacion de compras</a></li>
-	                <li><a href="#" class="py-2 d-block">Devoluciones &amp; Cambios</a></li>
-	                <li><a href="#" class="py-2 d-block">Terminos &amp; Condiciones</a></li>
-	                <li><a href="#" class="py-2 d-block">Politicas de Privacidad</a></li>
-	              </ul>
-	              <ul class="list-unstyled">
-	                <li><a href="#" class="py-2 d-block">FaQs</a></li>
-	                <li><a href="#" class="py-2 d-block">Contacto</a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Consultas?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Maipo, Region Metropolitana, Chile</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+569 92 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">MaipoGrande@gmail.com</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php  
+include 'includes/footermenus.php';  
+?>
     
   
 

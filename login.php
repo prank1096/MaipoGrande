@@ -3,8 +3,20 @@
 include_once 'db.php';
 require 'config.php';
 require 'conexion.php';
+
+
+
+session_start();
+
 ?>
 
+<?php  
+include 'includes/header.php';  
+?>
+<div class="container">
+    <div class="card card-container">
+  
+        
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,18 +102,45 @@ require 'conexion.php';
     <center>
         <form action="validar.php" class="container" method="post">
         <br>
-        <br>  
-          <h1 class="color">Inicio de Sesión</h1>
-          <br>  
-            <div><label for="email"><b>Usuario</b></label>
-                <input type="text" placeholder="usuario" name="usuario" autocomplete="off" required>
+        <div class="result">
+            <?php
+            if (isset($_GET['empty'])){
+                echo '<div class="alert alert-danger">Debe ingresar el nombre de usuario</div>';
+            }elseif (isset($_GET['loginE'])){
+                echo '<div class="alert alert-danger">Nombre de usuario o contraseña incorrectos!</div>';
+            } ?>
+        </div>
+        <form class="form-signin" data-toggle="validator" action="validar.php" method="post">
+            <div class="row">
+                <div class="form-group col-lg-12">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" name="email" class="form-control" placeholder="usuario" required
+                           data-error="Debe ingresar el nombre de usuario">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" class="form-control" placeholder="*******" required
+                           data-error="Debe ingresar la contraseña">
+                    <div class="help-block with-errors"></div>
+                </div>
             </div>
-          
-      <div>
-        <label for="psw"><b>Contraseña</b></label>
-        <input type="password" placeholder="*********" name="password" autocomplete="off" required>
-      </div>
 
+            <button class="btn btn-lg btn-success btn-block btn-signin" type="submit" name="login">Entrar</button>
+
+        </form><!-- /form -->
+    </div><!-- /card-container -->
+</div><!-- /container -->
+
+
+
+
+
+
+   
+
+ 
+       
       <span class="psw">Recuperar <a href="#">contraseña</a></span>
       <span class="psa">¿No posee una cuenta?,<a href="register.php"> Registrarme! </a></span>
       <br>    

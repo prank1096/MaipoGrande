@@ -3,6 +3,9 @@
   require 'config.php';
   require 'conexion.php';
 ?>
+<?php  
+include 'includes/header.php';  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -274,7 +277,6 @@ form .user-details .input-box{
               </form>
             </div>
           </div>
-        
         </body>
         </html>
 
